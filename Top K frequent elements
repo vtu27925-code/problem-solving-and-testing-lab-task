@@ -1,0 +1,28 @@
+import java.util.*;
+
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        // Count frequency
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+
+        // Put keys into a list
+        List<Integer> list = new ArrayList<>(map.keySet());
+
+        // Sort by frequency
+        list.sort((a, b) -> map.get(b) - map.get(a));
+
+        // Store answer
+        int[] result = new int[k];
+
+        for (int i = 0; i < k; i++) {
+            result[i] = list.get(i);
+        }
+
+        return result;
+    }
+}
