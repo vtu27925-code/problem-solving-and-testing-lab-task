@@ -1,0 +1,71 @@
+import java.util.*;
+
+class Student {
+    private int id;
+    private String name;
+    private double cgpa;
+
+    public Student(int id, String name, double cgpa) {
+        this.id = id;
+        this.name = name;
+        this.cgpa = cgpa;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getCgpa() {
+        return cgpa;
+    }
+}
+
+class Checker implements Comparator<Student> {
+
+    @Override
+    public int compare(Student a, Student b) {
+
+        // 1. CGPA: decreasing order
+        if (a.getCgpa() != b.getCgpa()) {
+            return Double.compare(b.getCgpa(), a.getCgpa());
+        }
+
+        // 2. Name: alphabetical order
+        if (!a.getName().equals(b.getName())) {
+            return a.getName().compareTo(b.getName());
+        }
+
+        // 3. ID: increasing order
+        return Integer.compare(a.getId(), b.getId());
+    }
+}
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+
+        int n = scan.nextInt();
+
+        List<Student> studentList = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            int id = scan.nextInt();
+            String name = scan.next();
+            double cgpa = scan.nextDouble();
+
+            studentList.add(new Student(id, name, cgpa));
+        }
+
+        Collections.sort(studentList, new Checker());
+
+        for (Student student : studentList) {
+            System.out.println(student.getName());
+        }
+
+        scan.close();
+    }
+}
