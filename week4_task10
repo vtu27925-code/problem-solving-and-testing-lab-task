@@ -1,0 +1,116 @@
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
+class Result {
+
+    
+    }
+
+
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+        String[] firstMultipleInput = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+public static void matrixRotation(List<List<Integer>> matrix, int r) {
+    int rows = matrix.size();
+    int cols = matrix.get(0).size();
+
+    int layers = Math.min(rows, cols) / 2;
+
+    for (int layer = 0; layer < layers; layer++) {
+
+        List<Integer> list = new ArrayList<>();
+
+        // Left side
+        for (int i = layer; i < rows - layer - 1; i++) {
+            list.add(matrix.get(i).get(layer));
+        }
+
+        // Bottom side
+        for (int j = layer; j < cols - layer - 1; j++) {
+            list.add(matrix.get(rows - layer - 1).get(j));
+        }
+
+        // Right side
+        for (int i = rows - layer - 1; i > layer; i--) {
+            list.add(matrix.get(i).get(cols - layer - 1));
+        }
+
+        // Top side
+        for (int j = cols - layer - 1; j > layer; j--) {
+            list.add(matrix.get(layer).get(j));
+        }
+
+        int rotate = r % list.size();
+
+        // Put rotated values back
+        int index = rotate;
+
+        // Left side
+        for (int i = layer; i < rows - layer - 1; i++) {
+            matrix.get(i).set(layer, list.get(index));
+            index = (index + 1) % list.size();
+        }
+
+        // Bottom side
+        for (int j = layer; j < cols - layer - 1; j++) {
+            matrix.get(rows - layer - 1).set(j, list.get(index));
+            index = (index + 1) % list.size();
+        }
+
+        // Right side
+        for (int i = rows - layer - 1; i > layer; i--) {
+            matrix.get(i).set(cols - layer - 1, list.get(index));
+            index = (index + 1) % list.size();
+        }
+
+        // Top side
+        for (int j = cols - layer - 1; j > layer; j--) {
+            matrix.get(layer).set(j, list.get(index));
+            index = (index + 1) % list.size();
+        }
+    }
+
+    for (List<Integer> row : matrix) {
+        for (int value : row) {
+            System.out.print(value + " ");
+        }
+        System.out.println();
+    }
+}
+        int m = Integer.parseInt(firstMultipleInput[0]);
+
+        int n = Integer.parseInt(firstMultipleInput[1]);
+
+        int r = Integer.parseInt(firstMultipleInput[2]);
+
+        List<List<Integer>> matrix = new ArrayList<>();
+
+        IntStream.range(0, m).forEach(i -> {
+            try {
+                matrix.add(
+                    Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
+                        .map(Integer::parseInt)
+                        .collect(toList())
+                );
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        Result.matrixRotation(matrix, r);
+
+        bufferedReader.close();
+    }
+}
