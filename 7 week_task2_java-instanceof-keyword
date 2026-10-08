@@ -1,0 +1,50 @@
+import java.io.*;
+import java.util.*;
+
+class Student {
+}
+
+class Rockstar {
+}
+
+class Hacker {
+}
+
+public class Solution {
+
+    static String countStudents(ArrayList<Object> list) {
+
+        int studentCount = 0;
+        int rockstarCount = 0;
+        int hackerCount = 0;
+
+        for (Object obj : list) {
+
+            if (obj instanceof Student) {
+                studentCount++;
+            }
+
+            if (obj instanceof Rockstar) {
+                rockstarCount++;
+            }
+
+            if (obj instanceof Hacker) {
+                hackerCount++;
+            }
+        }
+
+        return studentCount + " " + rockstarCount + " " + hackerCount;
+    }
+
+    public static void main(String[] args) {
+
+        ArrayList<Object> list = new ArrayList<>();
+
+        list.add(new Student());
+        list.add(new Student());
+        list.add(new Rockstar());
+        list.add(new Hacker());
+
+        System.out.println(countStudents(list));
+    }
+}
